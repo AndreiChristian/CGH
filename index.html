@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTMX Counter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+  </head>
+
+  <body>
+  <div id="counter">0</div>
+
+  <button 
+  hx-target="#counter" 
+  hx-post="/decrease"
+  class='bg-red-500'
+  >
+  Decrease
+  </button>
+
+  <button 
+  hx-target="#counter" 
+  hx-post="/increase"
+  class='bg-blue-500'
+  >
+  Increase
+  </button>
+  </body>
+
+</html>
