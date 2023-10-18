@@ -10,23 +10,28 @@
   </head>
 
   <body>
-  <div id="counter">0</div>
 
+  <section class='h-screen bg-zinc-50 flex items-center justify-center gap-4 ' >
   <button 
   hx-target="#counter" 
   hx-post="/decrease"
-  class='bg-red-500'
+  class='bg-red-500 p-4 rounded '
   >
   Decrease
   </button>
 
+  <div class="text-zinc-900 text-xl" id="counter">0</div>
+
   <button 
   hx-target="#counter" 
   hx-post="/increase"
-  class='bg-blue-500'
+  class='bg-blue-500 p-4 rounded'
   >
   Increase
   </button>
+
+  </section>
+
   </body>
 
 </html>
