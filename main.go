@@ -2,7 +2,9 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"sync"
 
 	"github.com/go-chi/chi/v5"
@@ -41,7 +43,10 @@ func main() {
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl, _ := template.ParseFiles("index.html")
-		tmpl.ExecuteTemplate(w, "index.html", nil)
+		data := map[string]int{
+			"CounterValue": counter.GetValue(),
+		}
+		tmpl.ExecuteTemplate(w, "index.html", data)
 	})
 
 	r.Post("/increase", func(w http.ResponseWriter, _ *http.Request) {
@@ -55,7 +60,7 @@ func main() {
 	})
 
 	r.Post("/decrease", func(w http.ResponseWriter, _ *http.Request) {
-		counter.Increase()
+		counter.Decrease()
 		tmplString := "<div class=\"text-zinc-900 text-xl\" id=\"counter\">{{.CounterValue}}</div>"
 		tmpl := template.Must(template.New("counter").Parse(tmplString))
 		data := map[string]int{
@@ -64,5 +69,9 @@ func main() {
 		tmpl.ExecuteTemplate(w, "counter", data)
 	})
 
-	http.ListenAndServe(":4321", r)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
